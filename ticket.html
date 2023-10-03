@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kommunikáció a fejlesztéssel</title>
+  <link rel="stylesheet" href="styles.css">
+   
+</head>
+
+<body>
+  <header>
+    <h1>Ticket Rendszer</h1>
+  </header>
+
+  <main>
+    <section class="ticket-form">
+      <h2>Új ticket létrehozása</h2>
+      <form id="ticketForm">
+        <div class="form-group">
+          <label for="title">Típus:</label>
+          <select id="title" required>
+            <option value="">Válassz...</option>
+            <option value="fejlesztés">Fejlesztés</option>
+            <option value="hiba">Hiba</option>
+            <option value="SOS">SOS</option>
+            <option value="érdeklődés">Érdeklődés</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Leírás:</label>
+          <textarea id="description" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+  <label for="fileInput">Fájl feltöltése:</label>
+  <input type="file" id="fileInput" multiple>
+</div>
+        <button type="submit">Küldés</button>
+      </form>
+    </section>
+
+    <section class="ticket-list">
+      <h2>Ticketek</h2>
+      <table id="ticketTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Létrehozva</th>
+            <th>Státusz</th>
+            <th>Típus</th>
+            <th>Ticket</th>
+            <th>Fájl/Fájlok</th>
+          </tr>
+        </thead>
+        <tbody id="ticketList">
+          
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+ <script src="script.js"></script>
+</body>
+
+</html>
