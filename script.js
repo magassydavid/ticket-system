@@ -15,19 +15,55 @@ function submitTicket(event) {
   const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
 
   // Create a new ticket object with the form data and current date
-  const ticket = {
+  const newTicket = {
     ID: makeTicketId(),
     dateAdded: formattedDate,
-    status: "új", // Default status is "új"
+    status: "új",
     title: title,
     description: description
   };
 
+  // Fetch the current JSON data
+fetch('data.json')
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Nem sikerült betölteni a JSON fájlt.');
+  }
+  return response.text(); // JSON helyett szövegként olvassuk be
+})
+.then(jsonText => {
+  let data = { tickets: [] };
+
+  try {
+    // Próbáld meg a JSON szöveget objektummá alakítani
+    data = JSON.parse(jsonText);
+  } catch (error) {
+    console.error('Hiba történt a JSON fájl olvasásakor:', error);
+  }
+
+  // Add the new ticket to the existing data
+  data.tickets.push(newTicket);
+
+  // Update the JSON file with the modified data
+  return fetch('data.json', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+})
+.then(() => {
   // Add the ticket to the table
-  addTicketToTable(ticket);
+  addTicketToTable(newTicket);
 
   // Clear the form fields
   document.getElementById('ticketForm').reset();
+})
+.catch(error => {
+  console.error('Hiba történt a ticket mentése során:', error);
+});
+
 }
 
 // Function to add a ticket to the table
@@ -58,15 +94,15 @@ function addTicketToTable(ticket) {
 document.getElementById('ticketForm').addEventListener('submit', submitTicket);
 
 // Handle changes in the status dropdown (listen for changes in the table)
-document.getElementById('ticketList').addEventListener('change', function(event) {
+document.getElementById('ticketList').addEventListener('change', function (event) {
   if (event.target.classList.contains('status-dropdown')) {
     const ticketId = event.target.getAttribute('data-ticket-id');
     const selectedStatus = event.target.value;
 
-    alert('státusz váltásakor mehetne email a fejlesztőnek, hogy pl új ticket van, illetve ha a fejlesztő tesztre állítja akkor a usernek, hogy tesztelni való van');
+    alert('Státuszváltáskor értesíthetnénk a fejlesztőt, vagy a felhasználót.');
 
     // Update the ticket status in the data (you can save this in your backend)
-    console.log(`Ticket ${ticketId} status changed to: ${selectedStatus}`);
+    console.log(`Ticket ${ticketId} státusza megváltozott: ${selectedStatus}`);
 
     // Get the table row corresponding to the ticket
     const ticketRow = event.target.closest('tr');
