@@ -1,0 +1,19 @@
+{
+    "tickets": [
+      {
+        "ID": "1",
+        "dateAdded": "2023-10-03",
+        "status": "új",
+        "title": "Példa Ticket 1",
+        "description": "Ez egy példa ticket."
+      },
+      {
+        "ID": "2",
+        "dateAdded": "2023-10-03",
+        "status": "teszt-fázis",
+        "title": "Példa Ticket 2",
+        "description": "Ez is egy példa ticket."
+      }
+    ]
+  }
+  

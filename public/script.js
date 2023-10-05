@@ -29,10 +29,12 @@ fetch('data.json')
   if (!response.ok) {
     throw new Error('Nem sikerült betölteni a JSON fájlt.');
   }
-  return response.text(); // JSON helyett szövegként olvassuk be
+  return response.json(); // JSON -ként olvassuk be
 })
 .then(jsonText => {
+
   let data = { tickets: [] };
+  
 
   try {
     // Próbáld meg a JSON szöveget objektummá alakítani
@@ -46,7 +48,7 @@ fetch('data.json')
 
   // Update the JSON file with the modified data
   return fetch('data.json', {
-    method: 'POST',
+    method: 'GET',
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json'
